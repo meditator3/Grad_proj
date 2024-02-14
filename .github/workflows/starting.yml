@@ -6,7 +6,7 @@ on:
     branches: [ "main"]
 jobs:
   install_tf:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     
     steps:
       - name: checkout repo for terraform deployments
@@ -54,7 +54,7 @@ jobs:
   configuring_aws:
     # this will supposedly be on the SAME runner
     needs: install_tf 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: configure AWS
         run: |
@@ -67,7 +67,7 @@ jobs:
   starting_up_TF:
     # do simple init and check plan
     needs: configuring_aws
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: initiliazing terraform
         run: terraform init

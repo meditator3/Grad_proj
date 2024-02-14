@@ -49,8 +49,8 @@ jobs:
     steps:
       - name: configure AWS
         run: |
-          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile default
-          aws configure set aws_access_key_secret $AWS_ACCESS_KEY_SECRET --profile default
+          aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID} --profile default
+          aws configure set aws_access_key_secret ${AWS_ACCESS_KEY_SECRET} --profile default
           aws configure region eu-west-2 --profile default
           aws sts get-caller-identity
     

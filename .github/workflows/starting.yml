@@ -2,7 +2,8 @@ name: building_from_scratch
 
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ "main"]
 jobs:
   install_tf:
     runs-on: ubuntu-latest
@@ -30,10 +31,17 @@ jobs:
         run: terraform --version
       - name: install AWS cli for terraform permissions on AWS
         run: |
-          sudo apt install unzip
+          # Check if AWS CLI is already installed
+          if ! command -v aws &> /dev/null
+          then
+          # If not installed, download and unzip AWS CLI
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
+          # Execute AWS CLI installation script
           sudo ./aws/install
+          else
+          echo "AWS CLI is already installed, skipping installation."
+          fi
   configuring_aws:
     # this will supposedly be on the SAME runner
     needs: install_tf 

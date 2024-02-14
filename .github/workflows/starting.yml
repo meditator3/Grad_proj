@@ -11,9 +11,7 @@ jobs:
     steps:
       - name: checkout repo for terraform deployments
         uses: actions/checkout@v2
-        with:
-          persist-credentials: true
-          fetch-depth: 0
+                          ###############################    INSTALL TERRAFORM AND AWS CLI        ##################################
       - name: Install Terraform & aws cli
        
         run: |
@@ -51,7 +49,7 @@ jobs:
           else
           echo "AWS CLI is already installed, skipping installation."
           fi
-          
+                                            #############################   CONFIGURE AWS      ################################################
   configuring_aws:
     # this will supposedly be on the SAME runner
     needs: install_tf 
@@ -64,7 +62,7 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.AWS_ACCESS_KEY_SECRET }} --profile default
           aws configure set region eu-west-2 --profile default
           aws sts get-caller-identity
-          
+                                            ######################   secret keys / private pub to be passed to communicate with aws for Terraform ###################################
   pass_keys:
     needs: install_tf
     runs-on: self-hosted
@@ -81,6 +79,8 @@ jobs:
       - name: pass public
         run: |
           echo "${{ secrets.ID_RSA_PUB }}" | tee ~/.ssh/id_rsa.pub > /dev/null
+
+                                ####################### Terraform Startup initializing & terraforming ansible & cluster instances  ##########################################
           
   starting_up_TF:
     # do simple init and check plan
@@ -97,5 +97,11 @@ jobs:
         run: terraform plan
       - name: apply
         run: terraform apply -auto-approve
+                                        ######## CLUSTER creation and ADD ONs (ArgoCD, Prometheus) ##########################
+  create_cluster:
+    runs-on: self-hosted
+    steps:
+      - name: one script to bind them all
+        run: bash ./TF_apply.sh      
         
     

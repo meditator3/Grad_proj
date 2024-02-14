@@ -7,7 +7,7 @@ WORKER_K8S_IP_PRV1=$(terraform output -raw worker_ip_prv1)
 WORKER_K8S_IP_PRV2=$(terraform output -raw worker_ip_prv2)
 
 # pulling kubespray & updating python
-ssh -i k:/devops/cloud/ariel-key.pem -t ubuntu@$ANSIBLE_REMOTE_IP_PUB << EOF
+ssh  ubuntu@$ANSIBLE_REMOTE_IP_PUB << EOF
 sudo apt update
 sudo apt install git python3 python3-pip -y
 git clone https://github.com/kubernetes-incubator/kubespray.git

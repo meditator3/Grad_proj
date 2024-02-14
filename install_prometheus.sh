@@ -3,10 +3,10 @@
 MASTER_K8S_IP_PUB=$(terraform output -raw  master_ip_pub)
 
 # copy helm values chart to machine that installs prometheus
-scp -i  k:/devops/cloud/ariel-key.pem values-ariel.yaml ubuntu@$MASTER_K8S_IP_PUB:~
+scp  values-ariel.yaml ubuntu@$MASTER_K8S_IP_PUB:~
 
 # ssh to machine
-ssh -i  k:/devops/cloud/ariel-key.pem  ubuntu@$MASTER_K8S_IP_PUB <<EOF
+ssh  ubuntu@$MASTER_K8S_IP_PUB <<EOF
 whoami
 # download and configure helm 
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3

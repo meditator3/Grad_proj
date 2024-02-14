@@ -4,9 +4,9 @@ MASTER_K8S_IP_PUB=$(terraform output -raw  master_ip_pub)
 echo "#pass the ingress-rule for argo cd to : ${MASTER_K8S_IP_PUB}"
 ssh-keyscan  -H $MASTER_K8S_IP_PUB >> ~/.ssh/known_hosts
 echo " copying ingress rule argocd"
-scp -i k:/devops/cloud/ariel-key.pem ingress-rule-argo.yaml ubuntu@$MASTER_K8S_IP_PUB:~
+scp  ingress-rule-argo.yaml ubuntu@$MASTER_K8S_IP_PUB:~
 # install argoCD as argocd.grad.arieldevops.tech
-ssh -i k:/devops/cloud/ariel-key.pem  ubuntu@$MASTER_K8S_IP_PUB <<EOF
+ssh  ubuntu@$MASTER_K8S_IP_PUB <<EOF
 whoami
 echo " namespacing argoCD"
 sudo kubectl create ns argocd

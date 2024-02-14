@@ -12,11 +12,11 @@ cluster_dns="arieldevops.tech"
 
 # transfer hosts.yaml to ansible machine
 ssh-keyscan -H $ANSIBLE_REMOTE_IP_PUB >> ~/.ssh/known_hosts
-scp -i k:/devops/cloud/ariel-key.pem ./hosts.yaml ubuntu@$ANSIBLE_PUB:~/kubespray/inventory/mycluster
+scp ./hosts.yaml ubuntu@$ANSIBLE_PUB:~/kubespray/inventory/mycluster
 
 # updating hosts.yaml file + updating k8s-cluster.yml to use flannel and persistentVolume EBS(true) 
 # and update aws.yml for CSI driver to be used
-ssh -i k:/devops/cloud/ariel-key.pem -t ubuntu@$ANSIBLE_PUB << EOF
+ssh ubuntu@$ANSIBLE_PUB << EOF
 cd kubespray/inventory/mycluster
 
 cp hosts.yaml hosts.yaml.bak

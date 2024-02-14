@@ -15,7 +15,7 @@ WORKER_K8S_IP_PRV2=$(terraform output -raw  worker_ip_prv2)
 # checking ansible components pings
 
 ssh-keyscan -H $ANSIBLE_REMOTE_IP_PUB >> ~/.ssh/known_hosts
-ssh -i k:/devops/cloud/ariel-key.pem  ubuntu@$ANSIBLE_REMOTE_IP_PUB << EOF
+ssh ubuntu@$ANSIBLE_REMOTE_IP_PUB << EOF
 
 
 

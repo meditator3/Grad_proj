@@ -53,4 +53,16 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.AWS_ACCESS_KEY_SECRET }} --profile default
           aws configure set region eu-west-2 --profile default
           aws sts get-caller-identity
+  starting_up_TF:
+    # do simple init and check plan
+    needs: configuring_aws
+    runs-on: ubuntu-latest
+    steps:
+      - name: init terraform
+        run: terraform init
+      - name: start plan
+        run: terraform plan
+      - name: apply
+        run: terraform apply
+        
     

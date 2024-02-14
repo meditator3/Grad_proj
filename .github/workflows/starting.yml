@@ -69,6 +69,11 @@ jobs:
     needs: install_tf
     runs-on: self-hosted
     steps: 
+      - name: Create SSH Directory and Files
+        run: |
+          mkdir -p ~/.ssh
+          touch ~/.ssh/id_rsa
+          touch ~/.ssh/id_rsa.pub
       - name: pass private key 
         run: |
           echo ${{ secrets.ARIEL_KEY }} > $HOME/.ssh/id_rsa

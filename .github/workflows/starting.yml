@@ -11,7 +11,7 @@ jobs:
       - name: Install Terraform
        
         run: |
-          apt install wget
+          sudo apt install wget
           sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
           sudo wget -O- https://apt.releases.hashicorp.com/gpg | \
           sudo gpg --dearmor | \

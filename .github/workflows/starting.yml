@@ -71,17 +71,19 @@ jobs:
     steps: 
       - name: pass private key 
         run: |
-          echo ${{ secrets.ARIEL_KEY }} > /home/ubuntu/.ssh/id_rsa
-          sudo chmod 600 /home/ubuntu/.ssh/id_rsa
+          echo ${{ secrets.ARIEL_KEY }} > $HOME/.ssh/id_rsa
+          sudo chmod 600 $HOME/.ssh/id_rsa
       - name: pass public
         run: |
-          echo ${{ secrets.ID_RSA_PUB }} > home/ubuntu/.ssh/id_rsa.pub
+          echo ${{ secrets.ID_RSA_PUB }} > $HOME/.ssh/id_rsa.pub
           
   starting_up_TF:
     # do simple init and check plan
     needs: configuring_aws
     runs-on: self-hosted
     steps:
+      - name: check current dir
+        run : pwd
       - name: initiliazing terraform
         run: terraform init
       - name: are there files?

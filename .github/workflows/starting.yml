@@ -27,8 +27,10 @@ jobs:
           echo "stage 2"
           sudo apt update
           sudo apt-get install terraform
+          
       - name: check version   
         run: terraform --version
+        
       - name: install AWS cli for terraform permissions on AWS
         run: |
           # Check if AWS CLI is already installed
@@ -42,6 +44,7 @@ jobs:
           else
           echo "AWS CLI is already installed, skipping installation."
           fi
+          
   configuring_aws:
     # this will supposedly be on the SAME runner
     needs: install_tf 
@@ -53,12 +56,13 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.AWS_ACCESS_KEY_SECRET }} --profile default
           aws configure set region eu-west-2 --profile default
           aws sts get-caller-identity
+          
   starting_up_TF:
     # do simple init and check plan
     needs: configuring_aws
     runs-on: ubuntu-latest
     steps:
-      - name: init terraform
+      - name: initiliazing terraform
         run: terraform init
       - name: start plan
         run: terraform plan

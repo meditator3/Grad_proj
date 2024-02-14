@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: checkout repo for terraform deployments
+        uses: actions/checkout@v2
       - name: Install Terraform & aws cli
        
         run: |
@@ -64,6 +66,8 @@ jobs:
     steps:
       - name: initiliazing terraform
         run: terraform init
+      - name: are there files?
+        run : ls
       - name: start plan
         run: terraform plan
       - name: apply

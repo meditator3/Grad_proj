@@ -77,7 +77,7 @@ jobs:
       - name: pass private key 
         run: |
           echo ${{ secrets.ARIEL_KEY }} > $HOME/.ssh/id_rsa
-          sudo chmod 600 $HOME/.ssh/id_rsa
+          chmod 600 $HOME/.ssh/id_rsa
       - name: pass public
         run: |
           echo ${{ secrets.ID_RSA_PUB }} > $HOME/.ssh/id_rsa.pub

@@ -100,6 +100,7 @@ jobs:
                                         ######## CLUSTER creation and ADD ONs (ArgoCD, Prometheus) ##########################
   create_cluster:
     runs-on: self-hosted
+    needs: starting_up_TF
     steps:
       - name: one script to bind them all
         run: bash ./TF_apply.sh      

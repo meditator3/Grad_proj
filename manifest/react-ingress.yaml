@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: react
+  namespace: react
+  annotations:
+     ingress.kubernetes.io/proxy-body-size: 100M
+    ingress.kubernetes.io/app-root: "/"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - grad.arieldevops.tech
+  rules:
+  - host: grad.arieldevops.tech
+    http:
+      paths:
+      - path: /react
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 3000

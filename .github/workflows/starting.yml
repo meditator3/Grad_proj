@@ -2,8 +2,8 @@ name: building_from_scratch
 
 
 on:
-  push:
-    branches: [ "main"]
+  workflow_dispatch:
+    # branches: [ "main"]
 jobs:
   install_tf:
     runs-on: self-hosted
@@ -77,6 +77,6 @@ jobs:
       - name: start plan
         run: terraform plan
       - name: apply
-        run: terraform apply
+        run: terraform apply -auto-approve
         
     

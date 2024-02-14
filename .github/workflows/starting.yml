@@ -104,5 +104,13 @@ jobs:
     steps:
       - name: one script to bind them all
         run: bash ./TF_apply.sh      
+        # this script runs:
+        # ipcollecter.sh
+        # kubespraying.sh
+        # updatehosts.sh
+        # install_argocd.sh
+        # install prometheus.sh
+        
+        # 
         
     

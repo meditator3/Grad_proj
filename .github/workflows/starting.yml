@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   install_tf:
-    runs-on: ubuntu_latest
+    runs-on: [self-hosted, TF-server]
     
     steps:
       - name: Install Terraform

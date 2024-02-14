@@ -10,8 +10,9 @@ node_ip2=$(terraform output -raw worker_ip_prv2)
 file="hosts.yaml" #to reference inside the ansible 
 cluster_dns="arieldevops.tech"
 
+echo "UPDATE HOSTS"
 # transfer hosts.yaml to ansible machine
-ssh-keyscan -H $ANSIBLE_REMOTE_IP_PUB >> ~/.ssh/known_hosts
+ssh-keyscan -H $ANSIBLE_PUB >> ~/.ssh/known_hosts
 scp ./hosts.yaml ubuntu@$ANSIBLE_PUB:~/kubespray/inventory/mycluster
 
 # updating hosts.yaml file + updating k8s-cluster.yml to use flannel and persistentVolume EBS(true) 

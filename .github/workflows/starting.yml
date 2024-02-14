@@ -65,6 +65,20 @@ jobs:
           aws configure set region eu-west-2 --profile default
           aws sts get-caller-identity
           
+  pass_keys:
+    needs: install_tf
+    runs-on: self-hosted
+    steps: 
+      - name: pass private key & backup previous ones
+        run: |
+          sudo cp ~/.ssh/id_rsa ~/.ssh/id_rsa.bakcup
+          sudo cp ~/.ssh/id_rsa.pub ~/.ssh/id_rsa.bakcup.pub
+          echo ${{ secrets.ARIEL_KEY }} > ~/.ssh/id_rsa
+          sudo chmod 600 ~/.ssh/id_rsa
+      - name: pass public
+        run: |
+          echo ${{ secrets.ID_RSA_PUB }} > ~/.ssh/id_rsa.pub
+          
   starting_up_TF:
     # do simple init and check plan
     needs: configuring_aws

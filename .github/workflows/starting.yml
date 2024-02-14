@@ -69,10 +69,8 @@ jobs:
     needs: install_tf
     runs-on: self-hosted
     steps: 
-      - name: pass private key & backup previous ones
+      - name: pass private key 
         run: |
-          sudo cp ~/.ssh/id_rsa ~/.ssh/id_rsa.bakcup
-          sudo cp ~/.ssh/id_rsa.pub ~/.ssh/id_rsa.bakcup.pub
           echo ${{ secrets.ARIEL_KEY }} > ~/.ssh/id_rsa
           sudo chmod 600 ~/.ssh/id_rsa
       - name: pass public

@@ -7,3 +7,4 @@ bash ./kubespraying.sh
 bash ./update_hosts.sh
 bash ./install_argocd.sh
 bash ./install_prometheus.sh
+bash ./cloud-provider-aws.sh

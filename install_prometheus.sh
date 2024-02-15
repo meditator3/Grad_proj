@@ -3,11 +3,14 @@
 MASTER_K8S_IP_PUB=$(terraform output -raw  master_ip_pub)
 
 # copy helm values chart to machine that installs prometheus
-scp  values-ariel.yaml ubuntu@$MASTER_K8S_IP_PUB:~
+scp  values-ariel.yaml ubuntu@$MASTER_K8S_IP_PUB:~   # updated helm values for ingress deployment
+scp LB-ingress.yaml ubuntu@$MASTER_K8S_IP_PUB:~    # LB svc for aws
 
 # ssh to machine
 ssh  ubuntu@$MASTER_K8S_IP_PUB <<EOF
 whoami
+# apply LB-ingress rule 
+sudo kubectl apply -f LB-ingress.yaml
 # download and configure helm 
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh

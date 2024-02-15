@@ -50,6 +50,11 @@ sed -i 's/# aws_ebs_csi_enable_volume_snapshot: false/ aws_ebs_csi_enable_volume
 echo "k8s_cluster updated"
 cd ../
 
+echo "backup all.yml for...backup, about to change it"
+cp ~/kubespray/inventory/mycluster/group_vars/all/all.yml  ~/kubespray/inventory/mycluster/group_vars/all/all.yml.backup
+echo " updating all.yml for aws cloud provider recognition by the cluster"
+sed -i 's/# cloud_provider: .*/cloud_provider: aws/' ~/kubespray/inventory/mycluster/group_vars/all/all.yml
+
 echo "generating keys for cluster"
 sudo ssh-keygen -y -f /home/ubuntu/.ssh/id_rsa | sudo tee /home/ubuntu/.ssh/id_rsa.pub
 sudo ssh-copy-id -i /home/ubuntu/.ssh/id_rsa.pub ubuntu@$master_ip

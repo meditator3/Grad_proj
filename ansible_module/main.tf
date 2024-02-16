@@ -68,7 +68,8 @@ resource "aws_instance" "master-k8s" { # instance for cluster
         volume_type = "gp2"  # Specify the volume type (e.g., gp2, io1)
   }
     tags = {
-        Name = "TF-master-ariel-goingon"
+        Name = "TF-master-ariel-goingon"        
+        "kubernetes.io/cluster/ariel-cluster" = "owned"
     }
     provisioner "remote-exec" {
        inline = [
@@ -112,6 +113,7 @@ resource "aws_instance" "worker-k8s" {
   }
     tags = {
         Name = "TF-worker-ariel-goingon"
+        "kubernetes.io/cluster/ariel-cluster" = "owned"
     }
     provisioner "remote-exec" {
        inline = [

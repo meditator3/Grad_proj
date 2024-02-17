@@ -7,6 +7,10 @@ master_ip=$(terraform output -raw master_ip_prv)
 MASTER_K8S_IP_PUB=$(terraform output -raw  master_ip_pub)
 node_ip1=$(terraform output -raw worker_ip_prv1)
 node_ip2=$(terraform output -raw worker_ip_prv2)
+master_dns_name=$(terraform output -raw master_private_dns)  # this must be the node name or CCM 
+worker1_dns_name=$(terraform output -raw worker1_private_dns) # won't recognize the provideID/instanceID
+worker2_dns_name=$(terraform output -raw worker2_private_dns)
+
 file="hosts.yaml" #to reference inside the ansible 
 cluster_dns="arieldevops.tech"
 
@@ -24,9 +28,9 @@ cp hosts.yaml hosts.yaml.bak
 echo "backup hosts.yaml"
 echo "Update ansible_host, ip, and access_ip for each node"
 
-sed -i "/node1:/,/node2:/ {/ansible_host:/ s/ansible_host:.*/ansible_host: $master_ip/; /ip:/ s/ip:.*/ip: $master_ip/; /access_ip:/ s/access_ip:.*/access_ip: $master_ip/}" $file
-sed -i "/node2:/,/node3:/ {/ansible_host:/ s/ansible_host:.*/ansible_host: $node_ip1/; /ip:/ s/ip:.*/ip: $node_ip1/; /access_ip:/ s/access_ip:.*/access_ip: $node_ip1/}" $file
-sed -i "/node3:/,/kube_control_plane:/ {/ansible_host:/ s/ansible_host:.*/ansible_host: $node_ip2/; /ip:/ s/ip:.*/ip: $node_ip2/; /access_ip:/ s/access_ip:.*/access_ip: $node_ip2/}" $file
+sed -i "s/node1:/${master_dns_name}:/; s/ansible_host:.*/ansible_host: ${master_ip}/; s/ip:.*/ip: ${master_ip}/; s/access_ip:.*/access_ip: ${master_ip}/" $file
+sed -i "s/node2:/${worker1_dns_name}:/; s/ansible_host:.*/ansible_host: ${node_ip1}/; s/ip:.*/ip: ${node_ip1}/; s/access_ip:.*/access_ip: ${node_ip1}/" $file
+sed -i "s/node3:/${worker2_dns_name}:/; s/ansible_host:.*/ansible_host: ${node_ip2}/; s/ip:.*/ip: ${node_ip2}/; s/access_ip:.*/access_ip: ${node_ip2}/" $file
 echo "hosts.yaml has been updated."
 cd group_vars/k8s_cluster/
 echo "((updating k8s-cluster.yml for flannel and aws CSI driver for EBS persistent volumes))"

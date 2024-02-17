@@ -5,7 +5,7 @@ MASTER_K8S_IP_PUB=$(terraform output -raw  master_ip_pub)
 # copy helm values chart to machine that installs prometheus
 scp  values-ariel.yaml ubuntu@$MASTER_K8S_IP_PUB:~   # updated helm values for ingress deployment
 scp LB-ingress.yaml ubuntu@$MASTER_K8S_IP_PUB:~    # LB svc for aws
-
+scp cloud-values.yaml ubuntu@$MASTER_K8S_IP_PUB:~  # for aws CCM 
 # ssh to machine
 ssh  ubuntu@$MASTER_K8S_IP_PUB <<EOF
 whoami

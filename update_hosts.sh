@@ -74,7 +74,7 @@ ansible all -i inventory/mycluster/hosts.yaml -m shell -a "echo 'net.ipv4.ip_for
 ansible all -i inventory/mycluster/hosts.yaml -m shell -a "sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab && sudo swapoff -a" --private-key ~/.ssh/id_rsa
 echo "----------"
 echo " begin cluster creation! "
-ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=root cluster.yml --private-key ~/.ssh/id_rsa
+ansible-playbook -i /home/ubuntu/kubespray/inventory/mycluster/hosts.yaml --become --become-user=root cluster.yml --private-key ~/.ssh/id_rsa
 echo "FINISHED creating cluster!"
 echo " applying KUBECONFIG"
 ssh -i /home/ubuntu/.ssh/id_rsa ubuntu@$MASTER_K8S_IP_PUB

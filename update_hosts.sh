@@ -31,29 +31,32 @@ echo "Update ansible_host, ip, and access_ip for each node"
 echo "----                          ---- "
 # Update master node
 echo "Updating master node"
-sed -i "/^    node1:/a \      ansible_host: ${master_ip}" $file
-sed -i "/^    node1:/a \      ip: ${master_ip}" $file
-sed -i "/^    node1:/a \      access_ip: ${master_ip}" $file
 sed -i "s/^    node1:/    ${master_dns_name}:/" $file
+sed -i "/    ${master_dns_name}:/!b;n;c\      ansible_host: ${master_ip}" $file
+sed -i "/    ${master_dns_name}:/!b;n;n;c\      ip: ${master_ip}" $file
+sed -i "/    ${master_dns_name}:/!b;n;n;n;c\      access_ip: ${master_ip}" $file
 
 # Update worker 1
 echo "Updating worker 1"
-sed -i "/^    node2:/a \      ansible_host: ${node_ip1}" $file
-sed -i "/^    node2:/a \      ip: ${node_ip1}" $file
-sed -i "/^    node2:/a \      access_ip: ${node_ip1}" $file
 sed -i "s/^    node2:/    ${worker1_dns_name}:/" $file
+sed -i "/    ${worker1_dns_name}:/!b;n;c\      ansible_host: ${node_ip1}" $file
+sed -i "/    ${worker1_dns_name}:/!b;n;n;c\      ip: ${node_ip1}" $file
+sed -i "/    ${worker1_dns_name}:/!b;n;n;n;c\      access_ip: ${node_ip1}" $file
 
 # Update worker 2
 echo "Updating worker 2"
-sed -i "/^    node3:/a \      ansible_host: ${node_ip2}" $file
-sed -i "/^    node3:/a \      ip: ${node_ip2}" $file
-sed -i "/^    node3:/a \      access_ip: ${node_ip2}" $file
 sed -i "s/^    node3:/    ${worker2_dns_name}:/" $file
+sed -i "/    ${worker2_dns_name}:/!b;n;c\      ansible_host: ${node_ip2}" $file
+sed -i "/    ${worker2_dns_name}:/!b;n;n;c\      ip: ${node_ip2}" $file
+sed -i "/    ${worker2_dns_name}:/!b;n;n;n;c\      access_ip: ${node_ip2}" $file
 
 echo "Updating children section"
 sed -i "s/        node1:/        ${master_dns_name}:/" $file
 sed -i "s/        node2:/        ${worker1_dns_name}:/" $file
 sed -i "s/        node3:/        ${worker2_dns_name}:/" $file
+
+echo "updated children section"
+
 echo "hosts.yaml has been updated."
 
 cd group_vars/k8s_cluster/

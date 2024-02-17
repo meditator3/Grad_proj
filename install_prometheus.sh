@@ -25,6 +25,7 @@ sudo helm repo update
 sudo kubectl create ns monitoring
   # # using values-ariel.yaml to install prometheus grafana  # #
 echo " starting prometheus stack installing via helm"  
+sudo cp values-ariel.yaml /root/values-ariel.yaml
 sudo helm install kube-prom prometheus-community/kube-prometheus-stack -n monitoring -f values-ariel.yaml
 sudo kubectl get secret --namespace monitoring kube-prom-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 

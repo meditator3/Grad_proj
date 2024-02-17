@@ -77,7 +77,7 @@ echo " begin cluster creation! "
 ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=root cluster.yml --private-key ~/.ssh/id_rsa
 echo "FINISHED creating cluster!"
 echo " applying KUBECONFIG"
-ssh -i /home/ubuntu/id_rsa ubuntu@$MASTER_K8S_IP_PUB
+ssh -i /home/ubuntu/.ssh/id_rsa ubuntu@$MASTER_K8S_IP_PUB
 echo "logged to master node"
 echo "updating KUBECONFIG now"
 kubeconfig_path=$(sudo find / -name kubeconfig.conf | head -n 1|tail -n 1)

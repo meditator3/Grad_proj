@@ -31,3 +31,13 @@ output "ip_k8s_worker_prv1" {
 output "ip_k8s_worker_prv2" { 
     value = aws_instance.worker-k8s[1].private_ip
 }
+
+output "master_private_dns" {
+    value = aws_instance.master-k8s[0].private_dns
+}
+output "worker1_private_dns" {
+    value = aws_instance.worker-k8s[0].private_dns
+}
+output "worker2_private_dns" {
+    value = aws_instance.worker-k8s[1].private_dns
+}

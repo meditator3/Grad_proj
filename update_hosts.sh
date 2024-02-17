@@ -29,21 +29,31 @@ echo "backup hosts.yaml"
 echo "Update ansible_host, ip, and access_ip for each node"
 
 echo "----                          ---- "
+# Update master node
 echo "Updating master node"
-echo "Before: $(grep 'node1:' $file)"
-sed -i "s/node1:/${master_dns_name}:/; s/ansible_host:.*/ansible_host: ${master_ip}/; s/ip:.*/ip: ${master_ip}/; s/access_ip:.*/access_ip: ${master_ip}/" $file
-echo "After: $(grep "${master_dns_name}:" $file)"
+sed -i "/^    node1:/a \      ansible_host: ${master_ip}" $file
+sed -i "/^    node1:/a \      ip: ${master_ip}" $file
+sed -i "/^    node1:/a \      access_ip: ${master_ip}" $file
+sed -i "s/^    node1:/    ${master_dns_name}:/" $file
 
+# Update worker 1
 echo "Updating worker 1"
-echo "Before: $(grep 'node2:' $file)"
-sed -i "s/node2:/${worker1_dns_name}:/; s/ansible_host:.*/ansible_host: ${node_ip1}/; s/ip:.*/ip: ${node_ip1}/; s/access_ip:.*/access_ip: ${node_ip1}/" $file
-echo "After: $(grep "${worker1_dns_name}:" $file)"
+sed -i "/^    node2:/a \      ansible_host: ${node_ip1}" $file
+sed -i "/^    node2:/a \      ip: ${node_ip1}" $file
+sed -i "/^    node2:/a \      access_ip: ${node_ip1}" $file
+sed -i "s/^    node2:/    ${worker1_dns_name}:/" $file
 
+# Update worker 2
 echo "Updating worker 2"
-echo "Before: $(grep 'node3:' $file)"
-sed -i "s/node3:/${worker2_dns_name}:/; s/ansible_host:.*/ansible_host: ${node_ip2}/; s/ip:.*/ip: ${node_ip2}/; s/access_ip:.*/access_ip: ${node_ip2}/" $file
-echo "After: $(grep "${worker2_dns_name}:" $file)"
+sed -i "/^    node3:/a \      ansible_host: ${node_ip2}" $file
+sed -i "/^    node3:/a \      ip: ${node_ip2}" $file
+sed -i "/^    node3:/a \      access_ip: ${node_ip2}" $file
+sed -i "s/^    node3:/    ${worker2_dns_name}:/" $file
 
+echo "Updating children section"
+sed -i "s/        node1:/        ${master_dns_name}:/" $file
+sed -i "s/        node2:/        ${worker1_dns_name}:/" $file
+sed -i "s/        node3:/        ${worker2_dns_name}:/" $file
 echo "hosts.yaml has been updated."
 
 cd group_vars/k8s_cluster/

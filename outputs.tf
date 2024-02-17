@@ -51,11 +51,11 @@ output "worker_ip_prv2" {
               # outputs of private dns name of instance for the node name ##
                          # for aws CCM to recognize provider ID #
 output "master_private_dns" {
-    value = module.ansible.aws_instance.master-k8s[0].private_dns
+    value = module.ansible.master_private_dns
 }
 output "worker1_private_dns" {
-    value = module.ansible.aws_instance.worker-k8s[0].private_dns
+    value = module.ansible.worker1_private_dns
 }
 output "worker2_private_dns" {
-    value = module.ansible.aws_instance.worker-k8s[1].private_dns
+    value = module.ansible.worker2_private_dns
 }

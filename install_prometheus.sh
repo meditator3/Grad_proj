@@ -26,7 +26,7 @@ sudo cp values-ariel.yaml /root/values-ariel.yaml # values for prometheus
 sudo cp components.yaml /root/components.yaml # values and deploy of metrics server
 sudo helm upgrade --install kube-prom prometheus-community/kube-prometheus-stack -n monitoring -f values-ariel.yaml
 echo " install metrics-server" 
-kubectl apply -f components.yaml
+sudo kubectl apply -f components.yaml
 
 
 EOF

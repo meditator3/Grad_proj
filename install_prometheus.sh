@@ -1,7 +1,8 @@
 #!/bin/bash
 # ip of the machine to install prometheus
 MASTER_K8S_IP_PUB=$(terraform output -raw  master_ip_pub)
-
+# copy modified values for metrics-server
+scp components.yaml ubuntu@$MASTER_K8S_IP_PUB:~
 # copy helm values chart to machine that installs prometheus
 scp  values-ariel.yaml ubuntu@$MASTER_K8S_IP_PUB:~   # updated helm values for ingress deployment
 scp LB-ingress.yaml ubuntu@$MASTER_K8S_IP_PUB:~    # LB svc for aws
@@ -21,10 +22,11 @@ sudo helm repo update
 sudo kubectl create ns monitoring
   # # using values-ariel.yaml to install prometheus grafana  # #
 echo " starting prometheus stack installing via helm"  
-sudo cp values-ariel.yaml /root/values-ariel.yaml
+sudo cp values-ariel.yaml /root/values-ariel.yaml # values for prometheus
+sudo cp components.yaml /root/components.yaml # values and deploy of metrics server
 sudo helm upgrade --install kube-prom prometheus-community/kube-prometheus-stack -n monitoring -f values-ariel.yaml
 echo " install metrics-server" 
-kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+kubectl apply -f components.yaml
 
 
 EOF

@@ -1,5 +1,6 @@
 MASTER_K8S_IP_PUB=$(terraform output -raw  master_ip_pub)
 echo " copying autoscaler"
+ssh-keyscan  -H $MASTER_K8S_IP_PUB >> ~/.ssh/known_hosts
 scp  -i ~/.ssh.id_rsa cluster-autoscaler-autodiscover.yaml   ubuntu@$MASTER_K8S_IP_PUB:~
 echo "finished copying autoscaler"
 echo "logging in"

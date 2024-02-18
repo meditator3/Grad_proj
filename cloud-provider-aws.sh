@@ -1,3 +1,5 @@
+#!/bin/bash
+
 MASTER_K8S_IP_PUB=$(terraform output -raw  master_ip_pub)
 echo " copying autoscaler"
 ssh-keyscan  -H $MASTER_K8S_IP_PUB >> ~/.ssh/known_hosts

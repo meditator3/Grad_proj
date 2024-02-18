@@ -23,7 +23,8 @@ sudo kubectl create ns monitoring
 echo " starting prometheus stack installing via helm"  
 sudo cp values-ariel.yaml /root/values-ariel.yaml
 sudo helm upgrade --install kube-prom prometheus-community/kube-prometheus-stack -n monitoring -f values-ariel.yaml
-
+echo " install metrics-server" 
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
 
 EOF

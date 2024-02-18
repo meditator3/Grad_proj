@@ -132,11 +132,12 @@ spec:
     spec:
       containers:
       - args:
-        - --cert-dir=/etc/ssl/certs
+        - --cert-dir=/tmp
         - --secure-port=10250
         - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
         - --kubelet-use-node-status-port
         - --metric-resolution=15s
+        - --kubelet-insecure-tls
         image: registry.k8s.io/metrics-server/metrics-server:v0.7.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
@@ -176,6 +177,7 @@ spec:
         volumeMounts:
         - mountPath: /tmp
           name: tmp-dir
+        
       nodeSelector:
         kubernetes.io/os: linux
       priorityClassName: system-cluster-critical
@@ -183,6 +185,7 @@ spec:
       volumes:
       - emptyDir: {}
         name: tmp-dir
+     
 ---
 apiVersion: apiregistration.k8s.io/v1
 kind: APIService

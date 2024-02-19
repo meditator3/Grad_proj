@@ -103,7 +103,7 @@ jobs:
     needs: starting_up_TF
     steps:
       - name: one script to bind them all
-        run: bash ./TF_apply.sh      
+        run: bash ./scripts/TF_apply.sh      
         # this script runs:
         # ipcollecter.sh
         # kubespraying.sh

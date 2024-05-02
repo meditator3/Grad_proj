@@ -12,5 +12,5 @@ TF_apply.sh parent of these scripts:
 # install_argocd.sh
   - installs argocd on the cluster of kubespray via curl.
 # install prometheus.sh
-  - installs prometheus and grafana on the cluster for visibility and monitoring.
+  - installs prometheus and grafana on the cluster for visibility and monitoring, via helm.
  

@@ -11,6 +11,7 @@ TF_apply.sh parent of these scripts:
   - update the hosts file of kubespray with all relevant 3rd party such as flannel, metrics, nginx etc
 # cloud provider install
   - bash script to install AWS cloud provider into kubespray for it to reference the cloud, and allow ASG(auto scaling groups) for autoscaling feature, not working.
+  - the AWS CCM (cloud controller manager) conflicts with kubespray version. but the cluster does recognize AWS resources.
 # install_argocd.sh
   - installs argocd on the cluster of kubespray via curl.
 # install prometheus.sh

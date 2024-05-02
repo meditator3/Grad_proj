@@ -17,3 +17,4 @@ Cluster autoscaler
 AWS cloud controller manager
 Metrics server
 
+![Capture](https://github.com/meditator3/Grad_proj/assets/22438413/0ae04b26-bf49-45d9-981c-a82b302cf2a3)

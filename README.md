@@ -23,7 +23,7 @@ Metrics server
 CI
 ---
 CI is being run by a self hosted runner on AWS(couldn't pass the steps conditionals to next steps, bug?)
-once the images are pushed after versioning update in the repo of the App itself(reactJava0mysql), 
+once the images are pushed after versioning update in the repo of the App itself(react-java0mysql), 
 a folder manifests updates its yamls via SED. to the newer version. 
 
 

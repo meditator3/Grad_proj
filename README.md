@@ -29,7 +29,7 @@ a folder manifests updates its yamls via SED. to the newer version.
 
 CD
 --
-because argoCD can sense changes in the App repo, with the new update, that was made via SED over at the manifests-
+because argoCD can sense changes in the App repo, with the new update, that was made via SED over at the manifests, that was made by the CI on the react app repo-
 it syncs the cluster with the new images automatically, and deploys the new version from the Tag and registery of docker hub, in this case.
 which means the github repo is actually being code changed(actual git puhs/commit commands from the git action CI), and PR/commit is being made to the repo, because of the updated manifests of the repo.
 
